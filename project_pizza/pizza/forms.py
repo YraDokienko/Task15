@@ -16,3 +16,11 @@ class PizzaPriceUpdateForm(forms.Form):
         Pizza.objects.create(
             value=self.cleaned_data.get('value'),
         )
+
+
+class PizzaSortedForm(forms.Form):
+        sort_order = forms.ChoiceField(label='Сортировка', required=False, choices=[
+        ['name', 'по алфавиту'],
+        ['price', 'цена по возрастанию'],
+        ['-price', 'цена по убыванию'],
+    ])

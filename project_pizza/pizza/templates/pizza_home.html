@@ -18,12 +18,16 @@
         {% endif %}
         {%endfor%}
     </ul>
-        <form action="/pizza-form-add/">
-            <button> Добавить пиццу </button>
-        </form>
+<form action="/" method="get"> {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Применить">
+</form>
     <hr color="#6F9110">
 <form action="/pizza-price-update/">
     <p><input type="submit" value="Изменить цену"></p>
+</form>
+<form action="/pizza-form-add/">
+    <button> Добавить пиццу </button>
 </form>
 
 {% endblock %}

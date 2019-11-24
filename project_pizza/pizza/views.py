@@ -1,4 +1,4 @@
-from .forms import PizzaForm, PizzaPriceUpdateForm
+from .forms import PizzaForm, PizzaPriceUpdateForm, PizzaSortedForm
 from django.views.generic import ListView, FormView, UpdateView
 from .models import Pizza
 
@@ -8,12 +8,14 @@ class PizzaHomeView(ListView):
     template_name = 'pizza_home.html'
 
     def get_queryset(self):
-        return Pizza.objects.filter(price__gt=100)
+        sort = self.request.GET.get('sort_order', 'name')
+        return Pizza.objects.all().order_by(sort)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['data'] = Pizza.objects.all().count()
         context['list'] = Pizza.objects.values_list('name', flat=True)
+        context['form'] = PizzaSortedForm
         return context
 
 
